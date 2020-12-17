@@ -1,6 +1,8 @@
 name: Deploy
 
 on:
+  repository_dispatch:
+    types: trigger-deploy
   push:
     branches:
       - master
@@ -10,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.7.8 # This is the action
+      - uses: akhileshns/heroku-deploy@v3.7.8 
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "<NAME>" #Must be unique in Heroku
-          heroku_email: "<EMAIL>"
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}} 
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
